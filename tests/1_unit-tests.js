@@ -15,6 +15,14 @@ suite('UnitTests', () => {
         );
     });
     // 2. Handle a puzzle string with invalid chars (not 1-9 or .)
+    test('puzzle string with invalid chars', () => {
+        assert.equal(
+            solver.validate(
+                '1.5..2.84..63.12.7.2..5.....9..1....m.2.3674.3.7.2..9.47...8..1..16....926914.37.'
+            ),
+            false
+        );
+    });
     // 3. Handle a puzzle string that is not 81 chars in length
     // 4. Handle a valid row placement
     // 5. Handle an invalid row placement
