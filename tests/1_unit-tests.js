@@ -2,10 +2,18 @@ const chai = require('chai');
 const assert = chai.assert;
 
 const Solver = require('../controllers/sudoku-solver.js');
-let solver;
+const solver = new Solver();
 
 suite('UnitTests', () => {
     // 1. Handle a valid puzzle string of 81 chars
+    test('valid puzzle string of 81 chars', () => {
+        assert.equal(
+            solver.validate(
+                '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.'
+            ),
+            true
+        );
+    });
     // 2. Handle a puzzle string with invalid chars (not 1-9 or .)
     // 3. Handle a puzzle string that is not 81 chars in length
     // 4. Handle a valid row placement
