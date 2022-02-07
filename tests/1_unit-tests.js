@@ -24,6 +24,14 @@ suite('UnitTests', () => {
         );
     });
     // 3. Handle a puzzle string that is not 81 chars in length
+    test('puzzle string that is not 81 chars', () => {
+        assert.equal(
+            solver.validate(
+                '1.5..32.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.'
+            ),
+            false
+        );
+    });
     // 4. Handle a valid row placement
     // 5. Handle an invalid row placement
     // 6. Handle a valid column placement
