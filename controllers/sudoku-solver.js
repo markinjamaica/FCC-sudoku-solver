@@ -6,7 +6,7 @@ class SudokuSolver {
         } else if (puzzleString.length !== 81) {
             return 'Expected puzzle to be 81 characters long';
         } else if (!validRegex.test(puzzleString)) {
-            return 'Invalid character in puzzle';
+            return 'Invalid characters in puzzle';
         }
         return true;
     }
