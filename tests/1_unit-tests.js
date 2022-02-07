@@ -20,7 +20,7 @@ suite('UnitTests', () => {
             solver.validate(
                 '1.5..2.84..63.12.7.2..5.....9..1....m.2.3674.3.7.2..9.47...8..1..16....926914.37.'
             ),
-            false
+            'Invalid characters in puzzle'
         );
     });
     // 3. Handle a puzzle string that is not 81 chars in length
