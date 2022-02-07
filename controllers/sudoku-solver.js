@@ -11,11 +11,17 @@ class SudokuSolver {
         return true;
     }
 
-    checkRowPlacement(puzzleString, row, column, value) {}
+    checkRowPlacement(puzzleString, row, column, value) {
+        // if value is equal existing value in row, invalid
+    }
 
-    checkColPlacement(puzzleString, row, column, value) {}
+    checkColPlacement(puzzleString, row, column, value) {
+        // if value is equal to existing value in column, invalid
+    }
 
-    checkRegionPlacement(puzzleString, row, column, value) {}
+    checkRegionPlacement(puzzleString, row, column, value) {
+        // if value is equal to existing value in region, invalid
+    }
 
     solve(puzzleString) {}
 }
