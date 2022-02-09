@@ -44,10 +44,10 @@ class SudokuSolver {
             columns[number].push(puzzleString[i]);
         }
 
-        // Check to see if value already exists in column, or spot already taken
+        // Check to see if value can be placed in column
         if (
-            columns[column].includes(value) ||
-            columns[column][row.charCodeAt(0) - 'A'.charCodeAt(0)] !== '.'
+            columns[column].includes(value) &&
+            columns[column][row.charCodeAt(0) - 'A'.charCodeAt(0)] !== value
         ) {
             return false;
         }
@@ -104,12 +104,12 @@ class SudokuSolver {
     solve(puzzleString) {}
 }
 const puzzle = new SudokuSolver();
-const row = 'D';
+const row = 'A';
 const column = 4;
-const value = '6';
+const value = '3';
 const puzzleString =
     '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.';
-const result = puzzle.checkRegionPlacement(puzzleString, row, column, value);
+const result = puzzle.checkColPlacement(puzzleString, row, column, value);
 console.log(result);
 
 module.exports = SudokuSolver;
