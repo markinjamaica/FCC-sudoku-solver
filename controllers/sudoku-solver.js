@@ -55,18 +55,61 @@ class SudokuSolver {
     }
 
     checkRegionPlacement(puzzleString, row, column, value) {
-        // if value is equal to existing value in region, invalid
+        const regions = {};
+        const location = row + column;
+        let locationRegion;
+        // Regex representing regions 0 - 8
+        const regionRegex = [
+            /[A-C][1-3]/,
+            /[A-C][4-6]/,
+            /[A-C][7-9]/,
+            /[D-F][1-3]/,
+            /[D-F][4-6]/,
+            /[D-F][7-9]/,
+            /[G-H][1-3]/,
+            /[G-H][4-6]/,
+            /[G-H][7-9]/,
+        ];
+        // Determine region of location
+        for (let i = 0; i < 9; i++) {
+            if (regionRegex[i].test(location)) {
+                locationRegion = i;
+            }
+        }
+        // Populate regions object with property numbers 0-8, representing regions
+        let unit = 0;
+        for (let r = 0; r < 9; r++) {
+            regions[r] = [];
+            let tempUnit = unit;
+            for (let i = 0; i < 9; i++) {
+                regions[r].push(puzzleString[tempUnit]);
+                if (regions[r].length % 3 === 0) {
+                    tempUnit += 7;
+                } else {
+                    tempUnit++;
+                }
+            }
+            unit += 3;
+            if ((r + 1) % 3 === 0) {
+                unit += 18;
+            }
+        }
+        // Check to see if value can be placed in region
+        if (regions[locationRegion].includes(value)) {
+            return false;
+        }
+        return true;
     }
 
     solve(puzzleString) {}
 }
 const puzzle = new SudokuSolver();
-const row = 'B';
-const column = 2;
-const value = '1';
+const row = 'D';
+const column = 4;
+const value = '6';
 const puzzleString =
     '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.';
-const result = puzzle.checkColPlacement(puzzleString, row, column, value);
+const result = puzzle.checkRegionPlacement(puzzleString, row, column, value);
 console.log(result);
 
 module.exports = SudokuSolver;
