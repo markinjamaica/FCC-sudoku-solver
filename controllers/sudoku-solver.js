@@ -25,8 +25,8 @@ class SudokuSolver {
             rows[letter].push(puzzleString[i]);
         }
 
-        // Check to see if value already exists in row, or spot already taken
-        if (rows[row].includes(value) || rows[row][column - 1] !== '.') {
+        // Check to see if value can be placed in row
+        if (rows[row].includes(value) && rows[row][column - 1] !== value) {
             return false;
         }
         return true;
@@ -105,11 +105,11 @@ class SudokuSolver {
 }
 const puzzle = new SudokuSolver();
 const row = 'A';
-const column = 4;
-const value = '3';
+const column = 3;
+const value = '5';
 const puzzleString =
     '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.';
-const result = puzzle.checkColPlacement(puzzleString, row, column, value);
+const result = puzzle.checkRowPlacement(puzzleString, row, column, value);
 console.log(result);
 
 module.exports = SudokuSolver;
