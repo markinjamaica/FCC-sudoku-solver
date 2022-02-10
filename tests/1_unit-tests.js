@@ -53,6 +53,12 @@ suite('UnitTests', () => {
         );
     });
     // 9. Handle an invalid region (3x3 grid) placement
+    test('invalid region placement', () => {
+        assert.equal(
+            solver.checkRegionPlacement(testString, 'A', 2, '6'),
+            false
+        );
+    });
     // 10. Valid puzzle strings pass the solver
     // 11. Invalid puzzle strings fail the solver
     // 12. Solver returns the expected solution for an incomplete puzzle
