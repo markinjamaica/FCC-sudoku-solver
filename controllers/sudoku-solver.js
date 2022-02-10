@@ -55,47 +55,38 @@ class SudokuSolver {
     }
 
     checkRegionPlacement(puzzleString, row, column, value) {
+        const rowNumber = row.charCodeAt(0) - 'A'.charCodeAt(0);
+        const valueIndex = rowNumber * 9 + column - 1;
         const regions = {};
-        const location = row + column;
         let locationRegion;
-        // Regex representing regions 0 - 8
-        const regionRegex = [
-            /[A-C][1-3]/,
-            /[A-C][4-6]/,
-            /[A-C][7-9]/,
-            /[D-F][1-3]/,
-            /[D-F][4-6]/,
-            /[D-F][7-9]/,
-            /[G-H][1-3]/,
-            /[G-H][4-6]/,
-            /[G-H][7-9]/,
-        ];
-        // Determine region of location
-        for (let i = 0; i < 9; i++) {
-            if (regionRegex[i].test(location)) {
-                locationRegion = i;
-            }
-        }
-        // Populate regions object with property numbers 0-8, representing regions
-        let unit = 0;
+        let index = 0;
+
+        // Populate regions object with regions numbered 0-8
         for (let r = 0; r < 9; r++) {
             regions[r] = [];
-            let tempUnit = unit;
+            let tempIndex = index;
             for (let i = 0; i < 9; i++) {
-                regions[r].push(puzzleString[tempUnit]);
+                // Determine region of location
+                if (tempIndex === valueIndex) {
+                    locationRegion = r;
+                }
+                regions[r].push(puzzleString[tempIndex]);
                 if (regions[r].length % 3 === 0) {
-                    tempUnit += 7;
+                    tempIndex += 7;
                 } else {
-                    tempUnit++;
+                    tempIndex++;
                 }
             }
-            unit += 3;
+            index += 3;
             if ((r + 1) % 3 === 0) {
-                unit += 18;
+                index += 18;
             }
         }
         // Check to see if value can be placed in region
-        if (regions[locationRegion].includes(value)) {
+        if (
+            regions[locationRegion].includes(value) &&
+            puzzleString[valueIndex] !== value
+        ) {
             return false;
         }
         return true;
@@ -105,11 +96,11 @@ class SudokuSolver {
 }
 const puzzle = new SudokuSolver();
 const row = 'A';
-const column = 3;
-const value = '5';
+const column = 1;
+const value = '1';
 const puzzleString =
     '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.';
-const result = puzzle.checkRowPlacement(puzzleString, row, column, value);
+const result = puzzle.checkRegionPlacement(puzzleString, row, column, value);
 console.log(result);
 
 module.exports = SudokuSolver;
