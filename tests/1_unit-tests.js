@@ -83,4 +83,10 @@ suite('UnitTests', () => {
         );
     });
     // 12. Solver returns the expected solution for an incomplete puzzle
+    test('return expected puzzle solution', () => {
+        assert.equal(
+            solver.solve(testString),
+            '135762984946381257728459613694517832812936745357824196473298561581673429269145378'
+        );
+    });
 });
