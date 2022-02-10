@@ -70,5 +70,17 @@ suite('UnitTests', () => {
         );
     });
     // 11. Invalid puzzle strings fail the solver
+    test('invalid puzzle strings', () => {
+        assert.equal(
+            solver.validate('fake test string'),
+            'Expected puzzle to be 81 characters long'
+        );
+        assert.equal(
+            solver.validate(
+                '5..91372.3...8.5.9.9.25..8.68.47.23...95..46.7.4.....5.2.......4..8916..85.72..3'
+            ),
+            'Expected puzzle to be 81 characters long'
+        );
+    });
     // 12. Solver returns the expected solution for an incomplete puzzle
 });
