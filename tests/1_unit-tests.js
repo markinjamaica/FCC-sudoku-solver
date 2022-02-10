@@ -34,6 +34,9 @@ suite('UnitTests', () => {
         assert.equal(solver.checkRowPlacement(testString, 'A', 2, '3'), true);
     });
     // 5. Handle an invalid row placement
+    test('invalid row placement', () => {
+        assert.equal(solver.checkRowPlacement(testString, 'A', 2, '8'), false);
+    });
     // 6. Handle a valid column placement
     // 7. Handle an invalid column placement
     // 8. Handle a valid region (3x3 grid) placement
