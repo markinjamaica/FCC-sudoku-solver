@@ -3,16 +3,13 @@ const assert = chai.assert;
 
 const Solver = require('../controllers/sudoku-solver.js');
 const solver = new Solver();
+const testString =
+    '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.';
 
 suite('UnitTests', () => {
     // 1. Handle a valid puzzle string of 81 chars
     test('valid puzzle string of 81 chars', () => {
-        assert.equal(
-            solver.validate(
-                '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.'
-            ),
-            true
-        );
+        assert.equal(solver.validate(testString), true);
     });
     // 2. Handle a puzzle string with invalid chars (not 1-9 or .)
     test('puzzle string with invalid chars', () => {
