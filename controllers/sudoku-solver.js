@@ -92,15 +92,73 @@ class SudokuSolver {
         return true;
     }
 
-    solve(puzzleString) {}
+    solve(puzzleString) {
+        // loop through numbers 1-9 for each location, checking each value with each check
+        // if multiple values could fit, leave space blank, and continue looping through
+        // until board is filled, updating puzzleString constantly...
+        while (puzzleString.includes('.')) {
+            // reset puzzleString index to O
+            let i = 0;
+
+            // loop over rows
+            for (let r = 0; r < 9; r++) {
+                // convert row number to letter. example 0 to 'A'
+                let row = String.fromCharCode('A'.charCodeAt(0) + r);
+
+                // loop over columns
+                for (let column = 1; column < 10; column++) {
+                    // create empty array to push possible matches to,
+                    let matches = [];
+
+                    // if location index empty check for possible matches
+                    if (puzzleString[i] === '.') {
+                        for (let value = 1; value < 10; value++) {
+                            const stringValue = value.toString();
+                            const rowCheck = this.checkRowPlacement(
+                                puzzleString,
+                                row,
+                                column,
+                                stringValue
+                            );
+                            const colCheck = this.checkColPlacement(
+                                puzzleString,
+                                row,
+                                column,
+                                stringValue
+                            );
+                            const regionCheck = this.checkRegionPlacement(
+                                puzzleString,
+                                row,
+                                column,
+                                stringValue
+                            );
+
+                            if (rowCheck && colCheck && regionCheck) {
+                                matches.push(stringValue);
+                            }
+                        }
+                        // if only one match, change value to that and move on
+                        if (matches.length === 1) {
+                            puzzleString = puzzleString.split('');
+                            puzzleString[i] = matches[0];
+                            puzzleString = puzzleString.join('');
+                        }
+                    }
+                    // Update puzzlestring index
+                    i++;
+                }
+            }
+        }
+        return puzzleString;
+    }
 }
-const puzzle = new SudokuSolver();
-const row = 'A';
-const column = 1;
-const value = '1';
-const puzzleString =
-    '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.';
-const result = puzzle.checkRegionPlacement(puzzleString, row, column, value);
-console.log(result);
+// const puzzle = new SudokuSolver();
+// const row = 'A';
+// const column = 1;
+// const value = '1';
+// const puzzleString =
+//     '.7.89.....5....3.4.2..4..1.5689..472...6.....1.7.5.63873.1.2.8.6..47.1..2.9.387.6';
+// const result = puzzle.solve(puzzleString);
+// console.log(result);
 
 module.exports = SudokuSolver;
