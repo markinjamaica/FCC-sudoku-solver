@@ -68,9 +68,18 @@ suite('Functional Tests', () => {
             .post('/api/solve')
             .send({ puzzle: cannotBeSolved })
             .end((err, res) => {
-                console.log('hi');
                 assert.equal(res.status, 200);
                 assert.equal(res.body.error, 'Puzzle cannot be solved');
+                done();
+            });
+    });
+    test('Check a puzzle placement with all fields', (done) => {
+        chai.request(server)
+            .post('/api/check')
+            .send({ puzzle: valid, coordinate: 'A1', value: '1' })
+            .end((err, res) => {
+                assert.equal(res.status, 200);
+                assert.equal(res.body.valid, true);
                 done();
             });
     });
