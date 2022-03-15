@@ -63,4 +63,15 @@ suite('Functional Tests', () => {
                 done();
             });
     });
+    test('Solve a puzzle that cannot be solved', (done) => {
+        chai.request(server)
+            .post('/api/solve')
+            .send({ puzzle: cannotBeSolved })
+            .end((err, res) => {
+                console.log('hi');
+                assert.equal(res.status, 200);
+                assert.equal(res.body.error, 'Puzzle cannot be solved');
+                done();
+            });
+    });
 });
