@@ -21,4 +21,13 @@ suite('Functional Tests', () => {
                 done();
             });
     });
+    test('Solve a puzzle with missing puzzle string', (done) => {
+        chai.request(server)
+            .post('/api/solve')
+            .end((err, res) => {
+                assert.equal(res.status, 200);
+                assert.equal(res.text, "{error: 'Required field missing'}");
+                done();
+            });
+    });
 });
