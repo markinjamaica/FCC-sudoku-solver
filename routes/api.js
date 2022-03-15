@@ -15,8 +15,12 @@ module.exports = function (app) {
             return res.json({ error: solver.validate(puzzle) });
         }
 
-        // console.log(solver.validate);
         const solution = solver.solve(puzzle);
+
+        // Check if no solution found
+        if (!solution) {
+            return res.json({ error: 'Puzzle cannot be solved' });
+        }
         res.json({ solution: solution });
     });
 };
