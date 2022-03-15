@@ -50,4 +50,17 @@ suite('Functional Tests', () => {
                 done();
             });
     });
+    test('Solve a puzzle with incorrect length', (done) => {
+        chai.request(server)
+            .post('/api/solve')
+            .send({ puzzle: incorrectLength })
+            .end((err, res) => {
+                assert.equal(res.status, 200);
+                assert.equal(
+                    res.body.error,
+                    'Expected puzzle to be 81 characters long'
+                );
+                done();
+            });
+    });
 });
