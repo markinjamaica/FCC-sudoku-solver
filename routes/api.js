@@ -8,7 +8,14 @@ module.exports = function (app) {
     app.route('/api/check').post((req, res) => {});
 
     app.route('/api/solve').post((req, res) => {
-        const solution = solver.solve(req.body.puzzle);
+        const puzzle = req.body.puzzle;
+
+        // Check if request body is missing puzzle
+        if (!puzzle) {
+            return res.json({ error: 'Required field missing' });
+        }
+
+        const solution = solver.solve(puzzle);
         res.json({ solution: solution });
     });
 };
