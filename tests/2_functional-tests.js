@@ -43,6 +43,7 @@ suite('Functional Tests', () => {
     test('Solve a puzzle with invalid characters', (done) => {
         chai.request(server)
             .post('/api/solve')
+            .send({ puzzle: invalidChars })
             .end((err, res) => {
                 assert.equal(res.status, 200);
                 assert.equal(res.body.error, 'Invalid characters in puzzle');
