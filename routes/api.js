@@ -10,11 +10,12 @@ module.exports = function (app) {
     app.route('/api/solve').post((req, res) => {
         const puzzle = req.body.puzzle;
 
-        // Check if request body is missing puzzle
-        if (!puzzle) {
-            return res.json({ error: 'Required field missing' });
+        // Check if valid puzzle
+        if (solver.validate(puzzle) !== true) {
+            return res.json({ error: solver.validate(puzzle) });
         }
 
+        // console.log(solver.validate);
         const solution = solver.solve(puzzle);
         res.json({ solution: solution });
     });
