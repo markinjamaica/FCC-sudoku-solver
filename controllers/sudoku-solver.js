@@ -96,9 +96,13 @@ class SudokuSolver {
         // loop through numbers 1-9 for each location, checking each value with each check
         // if multiple values could fit, leave space blank, and continue looping through
         // until board is filled, updating puzzleString constantly...
-        while (puzzleString.includes('.')) {
+        let changesMade = true;
+        while (puzzleString.includes('.') && changesMade) {
             // reset puzzleString index to O
             let i = 0;
+
+            // reset changesMade
+            changesMade = false;
 
             // loop over rows
             for (let r = 0; r < 9; r++) {
@@ -142,12 +146,17 @@ class SudokuSolver {
                             puzzleString = puzzleString.split('');
                             puzzleString[i] = matches[0];
                             puzzleString = puzzleString.join('');
+
+                            changesMade = true;
                         }
                     }
                     // Update puzzlestring index
                     i++;
                 }
             }
+        }
+        if (!changesMade) {
+            return false;
         }
         return puzzleString;
     }
