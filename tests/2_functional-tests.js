@@ -26,7 +26,7 @@ suite('Functional Tests', () => {
             .post('/api/solve')
             .end((err, res) => {
                 assert.equal(res.status, 200);
-                assert.equal(res.text, "{error: 'Required field missing'}");
+                assert.equal(res.body.error, 'Required field missing');
                 done();
             });
     });
