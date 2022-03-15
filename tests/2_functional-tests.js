@@ -5,12 +5,22 @@ const server = require('../server');
 
 chai.use(chaiHttp);
 
+// Test puzzles
+const valid =
+    '..839.7.575.....964..1.......16.29846.9.312.7..754.....62..5.78.8...3.2...492...1';
+const invalidChars =
+    '..839.7.575m....964..1.......16.29846.9.312.7..754.....62..5.78.8...3.2...492...1';
+const incorrectLength =
+    '..839.7.575.....964..1.......16.29846.9.312.7..754.....62..5.78.8...3.2...492..1';
+const cannotBeSolved =
+    '..839.7.575.....999..1.......16.29846.9.312.7..754.....62..5.78.8...3.2...492...1';
+
 suite('Functional Tests', () => {
     test('Solve a puzzle with valid puzzle string', function (done) {
         chai.request(server)
             .post('/api/solve')
             .send({
-                puzzle: '..839.7.575.....964..1.......16.29846.9.312.7..754.....62..5.78.8...3.2...492...1',
+                puzzle: valid,
             })
             .end(function (err, res) {
                 assert.equal(res.status, 200);
@@ -30,4 +40,5 @@ suite('Functional Tests', () => {
                 done();
             });
     });
+    test('Solve a puzzle with invalid characters');
 });
