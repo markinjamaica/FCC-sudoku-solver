@@ -40,5 +40,13 @@ suite('Functional Tests', () => {
                 done();
             });
     });
-    test('Solve a puzzle with invalid characters');
+    test('Solve a puzzle with invalid characters', (done) => {
+        chai.request(server)
+            .post('/api/solve')
+            .end((err, res) => {
+                assert.equal(res.status, 200);
+                assert.equal(res.body.error, 'Invalid characters in puzzle');
+                done();
+            });
+    });
 });
