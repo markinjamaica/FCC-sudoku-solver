@@ -106,4 +106,17 @@ suite('Functional Tests', () => {
                 done();
             });
     });
+    test('Check a puzzle placement with all placement conflicts', (done) => {
+        chai.request(server)
+            .post('/api/check')
+            .send({ puzzle: valid, coordinate: 'A1', value: '7' })
+            .end((err, res) => {
+                assert.equal(res.status, 200);
+                assert.equal(res.body.valid, false);
+                assert.include(res.body.conflict, 'row');
+                assert.include(res.body.conflict, 'region');
+                assert.include(res.body.conflict, 'column');
+                done();
+            });
+    });
 });
