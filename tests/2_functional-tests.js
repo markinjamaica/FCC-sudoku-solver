@@ -152,4 +152,14 @@ suite('Functional Tests', () => {
                 done();
             });
     });
+    test('Check a puzzle placement with invalid placement coordinate', (done) => {
+        chai.request(server)
+            .post('/api/check')
+            .send({ puzzle: valid, coordinate: '23', value: '7' })
+            .end((err, res) => {
+                assert.equal(res.status, 200);
+                assert.equal(res.body.error, 'Invalid coordinate');
+                done();
+            });
+    });
 });
