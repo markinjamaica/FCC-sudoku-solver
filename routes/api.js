@@ -21,6 +21,12 @@ module.exports = function (app) {
             return res.json({ error: solver.validate(puzzleString) });
         }
 
+        // Check if valid coordinate
+        const validRegex = /^([A-I][1-9])$/;
+        if (!validRegex.test(req.body.coordinate)) {
+            return res.json({ error: 'Invalid coordinate' });
+        }
+
         let conflict = [];
 
         const rowCheck = solver.checkRowPlacement(
