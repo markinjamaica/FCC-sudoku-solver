@@ -16,15 +16,21 @@ module.exports = function (app) {
         const column = req.body.coordinate[1];
         const value = req.body.value;
 
-        // Check if valid puzzle
+        // Check if invalid puzzle
         if (solver.validate(puzzleString) !== true) {
             return res.json({ error: solver.validate(puzzleString) });
         }
 
-        // Check if valid coordinate
-        const validRegex = /^([A-I][1-9])$/;
-        if (!validRegex.test(req.body.coordinate)) {
+        // Check if invalid coordinate
+        const coordinateRegex = /^([A-I][1-9])$/;
+        if (!coordinateRegex.test(req.body.coordinate)) {
             return res.json({ error: 'Invalid coordinate' });
+        }
+
+        // Check if invalid value
+        const valueRegex = /^([1-9]$)/;
+        if (!valueRegex.test(value)) {
+            return res.json({ error: 'Invalid value' });
         }
 
         let conflict = [];
