@@ -6,6 +6,11 @@ module.exports = function (app) {
     let solver = new SudokuSolver();
 
     app.route('/api/check').post((req, res) => {
+        // Check for missing required fields
+        if (!req.body.puzzle || !req.body.coordinate || !req.body.value) {
+            return res.json({ error: 'Required field(s) missing' });
+        }
+
         const puzzleString = req.body.puzzle;
         const row = req.body.coordinate[0];
         const column = req.body.coordinate[1];
