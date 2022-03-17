@@ -139,4 +139,17 @@ suite('Functional Tests', () => {
                 done();
             });
     });
+    test('Check a puzzle placement with incorrect length', (done) => {
+        chai.request(server)
+            .post('/api/check')
+            .send({ puzzle: incorrectLength, coordinate: 'A1', value: '7' })
+            .end((err, res) => {
+                assert.equal(res.status, 200);
+                assert.equal(
+                    res.body.error,
+                    'Expected puzzle to be 81 characters long'
+                );
+                done();
+            });
+    });
 });
