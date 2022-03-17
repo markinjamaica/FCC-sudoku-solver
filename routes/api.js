@@ -16,6 +16,11 @@ module.exports = function (app) {
         const column = req.body.coordinate[1];
         const value = req.body.value;
 
+        // Check if valid puzzle
+        if (solver.validate(puzzleString) !== true) {
+            return res.json({ error: solver.validate(puzzleString) });
+        }
+
         let conflict = [];
 
         const rowCheck = solver.checkRowPlacement(
@@ -37,6 +42,7 @@ module.exports = function (app) {
             value
         );
 
+        // Check for conflicts
         if (!rowCheck) {
             conflict.push('row');
         }
