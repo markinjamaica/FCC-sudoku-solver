@@ -162,4 +162,14 @@ suite('Functional Tests', () => {
                 done();
             });
     });
+    test('Check a puzzle placement with invalid placement value', (done) => {
+        chai.request(server)
+            .post('/api/check')
+            .send({ puzzle: valid, coordinate: 'A1', value: 'hi' })
+            .end((err, res) => {
+                assert.equal(res.status, 200);
+                assert.equal(res.body.error, 'Invalid value');
+                done();
+            });
+    });
 });
