@@ -129,4 +129,14 @@ suite('Functional Tests', () => {
                 done();
             });
     });
+    test('Check a puzzle placement with invalid characters', (done) => {
+        chai.request(server)
+            .post('/api/check')
+            .send({ puzzle: invalidChars, coordinate: 'A1', value: '7' })
+            .end((err, res) => {
+                assert.equal(res.status, 200);
+                assert.equal(res.body.error, 'Invalid characters in puzzle');
+                done();
+            });
+    });
 });
