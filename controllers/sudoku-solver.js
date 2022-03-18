@@ -56,7 +56,7 @@ class SudokuSolver {
 
     checkRegionPlacement(puzzleString, row, column, value) {
         const rowNumber = row.charCodeAt(0) - 'A'.charCodeAt(0);
-        const valueIndex = rowNumber * 9 + column - 1;
+        const valueIndex = rowNumber * 9 + parseInt(column) - 1;
         const regions = {};
         let locationRegion;
         let index = 0;
@@ -161,13 +161,14 @@ class SudokuSolver {
         return puzzleString;
     }
 }
+
 // const puzzle = new SudokuSolver();
-// const row = 'A';
-// const column = 1;
-// const value = '1';
+// const row = 'C';
+// const column = '3';
+// const value = '2';
 // const puzzleString =
-//     '.7.89.....5....3.4.2..4..1.5689..472...6.....1.7.5.63873.1.2.8.6..47.1..2.9.387.6';
-// const result = puzzle.solve(puzzleString);
+//     '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
+// const result = puzzle.checkRegionPlacement(puzzleString, row, column, value);
 // console.log(result);
 
 module.exports = SudokuSolver;
